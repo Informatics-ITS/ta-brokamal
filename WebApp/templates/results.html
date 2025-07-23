@@ -1,0 +1,363 @@
+{% extends "base.html" %}
+
+{% block title %}Hasil Deteksi dan Transliterasi{% endblock %}
+
+{% block content %}
+<div class="results-container">
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+            <h1 id="mainHeading" class="mb-0">Detection Results</h1>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-outline-primary" id="uploadAnotherBtn">Upload Another Image</a>
+    </div>
+    
+    {% for idx in range(results.original_images|length) %}
+    <div class="row mb-4">
+        <div class="col-md-6 mb-2">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0" id="originalImgLabel-{{ idx }}">Orisinal{{ idx+1 }}</h5>
+                </div>
+                <div class="card-body p-2">
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='uploads/' + results.original_images[idx]) }}" alt="Original Image {{ idx+1 }}" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-2">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0" id="detectionLabel-{{ idx }}">Hasil Deteksi {{ idx+1 }}</h5>
+                </div>
+                <div class="card-body p-2">
+                    <div class="image-container position-relative">
+                        {% if results.visualized_images[idx] %}
+                            <img src="{{ results.visualized_images[idx] }}" alt="Detection Visualization {{ idx+1 }}" class="img-fluid detection-img">
+                        {% else %}
+                            <div class="alert alert-warning" id="noVisImgLabel-{{ idx }}">
+                                Visualized image not available. Check detection results below.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+      <div class ="card-header">
+        <h5>Hasil Transliterasi {{ idx+1 }}</h5>
+      </div>
+  
+       <div class="d-grid gap-2 mt-3">
+                    <button class="btn btn-success sendToInferenceBtn" data-idx="{{ idx }}" id="sendToInferenceBtn-{{ idx }}">
+                        <span id="inference-btn-text-{{ idx }}">Process with Transliteration</span>
+                        <span id="inference-spinner-{{ idx }}" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div id="inferenceResultContainer-{{ idx }}" class="mt-4 d-none">
+                    <h5 id="translitResultLabel-{{ idx }}">Transliteration Result</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <pre id="inferenceOutput-{{ idx }}" class="mb-0"></pre>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+           <h5 class="card-title mb-0" id="detailObjLabel-{{ idx }}">Objek Detail {{ idx+1 }}</h5>
+              </div>
+        <div class="card-body">
+            {% set detection = results.detection_results[idx] %}
+            {% if detection and detection[0] and detection[0].predictions and detection[0].predictions.predictions %}
+                <div class="mb-4">
+                    <h6 id="detectedObjLabel-{{ idx }}">Objek terdeteksi</h6>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th id="classLabel-{{ idx }}">Class</th>
+                                    <th id="confLabel-{{ idx }}">Confidence</th>
+                                    <th id="leftLabel-{{ idx }}">Left Bounding Box</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set sorted_predictions = detection[0].predictions.predictions | sort(attribute='x', reverse=false) %}
+                                {% set sorted_predictions = sorted_predictions | sort(attribute='x', reverse=false) %}
+                                {% for pred in sorted_predictions %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td><span class="badge bg-primary">{{ pred.class }}</span></td>
+                                    <td>{{ (pred.confidence * 100) | round(2) }}%</td>
+                                    <td>x: {{ (pred.x - pred.width/2) | round(1) }}, y: {{ pred.y | round(1) }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="detection-results">
+                    <button class="btn btn-sm btn-outline-info mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#apiResponseCollapse-{{ idx }}" aria-expanded="false" aria-controls="apiResponseCollapse-{{ idx }}" id="showHideBtn-{{ idx }}">
+                        Show/Hide Complete Response
+                    </button>
+                    <div class="collapse" id="apiResponseCollapse-{{ idx }}">
+                        <h6 id="completeRespLabel-{{ idx }}">Complete Response:</h6>
+                        <pre class="mb-0"><code id="api-response-{{ idx }}">{{ detection | tojson(indent=2) }}</code></pre>
+                    </div>
+                </div>
+           {% else %}
+                <div class="alert alert-warning" id="noDetectLabel-{{ idx }}">
+                    No detection results available.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+.image-container {
+    overflow: hidden;
+    position: relative;
+}
+.detection-img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+}
+code {
+    color: #6cf;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Add syntax highlighting for JSON if needed
+    document.addEventListener('DOMContentLoaded', function() {
+        // Beautify all API responses
+        document.querySelectorAll('pre code[id^="api-response-"]').forEach(function(codeElement) {
+            try {
+                const jsonObj = JSON.parse(codeElement.textContent);
+                codeElement.textContent = JSON.stringify(jsonObj, null, 2);
+            } catch (e) {
+                // ignore
+            }
+        });
+
+        document.querySelectorAll('.sendToInferenceBtn').forEach(function(btn) {
+            btn.addEventListener('click', async function() {
+                const idx = btn.getAttribute('data-idx');
+                const btnText = document.getElementById('inference-btn-text-' + idx);
+                const spinner = document.getElementById('inference-spinner-' + idx);
+                const output = document.getElementById('inferenceOutput-' + idx);
+                const resultContainer = document.getElementById('inferenceResultContainer-' + idx);
+
+                btnText.textContent = langMap[currentLang]['processing'];
+                spinner.classList.remove('d-none');
+
+                try {
+                    // Get predictions for this crop
+                    const detection = JSON.parse(document.getElementById('api-response-' + idx).textContent);
+                    let predictions = null;
+                    if (detection && detection[0] && detection[0].predictions && detection[0].predictions.predictions) {
+                        predictions = detection[0].predictions.predictions;
+                    } else {
+                        output.textContent = langMap[currentLang]['noPredictions'];
+                        resultContainer.classList.remove('d-none');
+                        return;
+                    }
+                    //  Sort by leftmost X coordinate
+                    const sortedPredictions = predictions.sort((a, b) => {
+                        const aLeftX = a.x - a.width/2;
+                        const bLeftX = b.x - b.width/2;
+                        return aLeftX - bLeftX;
+                    });
+                  
+                    
+                    let classes = sortedPredictions.map(pred => pred.class);
+
+                    // 2. Merge base+vowel+final, base+final, base+vowel patterns
+                    const baseClasses = ["ba", "da", "na", "ca", "ga", "ja", "ka", "la", "ma", "nga", "pa", "ra", "sa", "ta", "wa", "ya", "ha", "fa", "za", "xa", "va", "qa", "sya", "nya", "kha", "a", "e", "i", "o", "u", "eu"];
+                    const vowelClasses = ["uu", "ee", "ii", "oo", "eueu"];
+                    const finalClasses = ["ng", "pamaeh", "rr", "ll", "yy", "hh", "lll", "yyy", "rrr"];
+
+                    let formattedClasses = [];
+                    let i = 0;
+                    while (i < classes.length) {
+                        // base + vowel + final OR base + final + vowel
+                        if (
+                            i < classes.length - 2 &&
+                            baseClasses.includes(classes[i]) &&
+                            (
+                                (vowelClasses.includes(classes[i + 1]) && finalClasses.includes(classes[i + 2])) ||
+                                (finalClasses.includes(classes[i + 1]) && vowelClasses.includes(classes[i + 2]))
+                            )
+                        ) {
+                            // Always merge as base_vowel_final (vowel first if present)
+                            let vowel = vowelClasses.includes(classes[i + 1]) ? classes[i + 1] : classes[i + 2];
+                            let final = finalClasses.includes(classes[i + 1]) ? classes[i + 1] : classes[i + 2];
+                            formattedClasses.push(`${classes[i]}_${vowel}_${final}`);
+                            i += 3;
+                        }
+                        // base + final
+                        else if (
+                            i < classes.length - 1 &&
+                            baseClasses.includes(classes[i]) &&
+                            finalClasses.includes(classes[i + 1])
+                        ) {
+                            formattedClasses.push(`${classes[i]}_${classes[i + 1]}`);
+                            i += 2;
+                        }
+                        // base + vowel
+                        else if (
+                            i < classes.length - 1 &&
+                            baseClasses.includes(classes[i]) &&
+                            vowelClasses.includes(classes[i + 1])
+                        ) {
+                            formattedClasses.push(`${classes[i]}_${classes[i + 1]}`);
+                            i += 2;
+                        }
+                        // ex special case base + vowel(ex) + final
+                        else if (classes[i] === "ex" && i < classes.length - 2 && baseClasses.includes(classes[i + 1]) && finalClasses.includes(classes[i + 2])) {
+                            formattedClasses.push(`${classes[i + 1]}_ex_${classes[i + 2]}`);
+                            i += 3;
+                        }
+                        // ex special case base + vowel(ex)
+                        else if (classes[i] === "ex" && i < classes.length - 1) {
+                            // Attach _ex to the NEXT class, e.g. ma ex ra -> ma ra_ex
+                            formattedClasses.push(`${classes[i + 1]}_ex`);
+                            i += 2;
+                        }
+                        // base + vowel(Ex) + final OR base + final + vowel(Ex)
+                        else if (
+                            i < classes.length - 2 &&
+                            (
+                                (baseClasses.includes(classes[i]) && vowelClasses.includes(classes[i + 1]) && finalClasses.includes(classes[i + 2])) ||
+                                (baseClasses.includes(classes[i]) && finalClasses.includes(classes[i + 1]) && vowelClasses.includes(classes[i + 2]))
+                            )
+                        ) {
+                            // Always merge as base_vowel_final (vowel first if present)
+                            let vowel = vowelClasses.includes(classes[i + 1]) ? classes[i + 1] : classes[i + 2];
+                            let final = finalClasses.includes(classes[i + 1]) ? classes[i + 1] : classes[i + 2];
+                            formattedClasses.push(`${classes[i]}_${vowel}_${final}`);
+                            i += 3;
+                        } //example: ma ra ex ng -> ma ra_ex_ng
+                         // just add
+                        else {
+                            formattedClasses.push(classes[i]);
+                            i++;
+                        }
+                    }
+                    const classesText = formattedClasses.join(' ');
+                    // --- END FLATTEN AND MERGE LOGIC ---
+
+                    // Send to inference endpoint
+                    const response = await fetch('/send-to-inference', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ text: classesText })
+                    });
+                    const data = await response.json();
+                    if (data.error) {
+                        output.textContent = `Error: ${data.error}\n`;
+                        if (data.response_text) {
+                            output.textContent += `API Response: ${data.response_text}`;
+                        }
+                    } else {
+                        output.textContent = JSON.stringify(data, null, 2);
+                    }
+                    resultContainer.classList.remove('d-none');
+                } catch (error) {
+                    output.textContent = `Error: ${error.message}\nPlease check if the API server is running at http://127.0.0.1:9000/transliterate`;
+                    resultContainer.classList.remove('d-none');
+                } finally {
+                    btnText.textContent = langMap[currentLang]['processTranslit'];
+                    spinner.classList.add('d-none');
+                }
+            });
+        });
+    }); 
+
+    // Language toggle for results.html content
+    const langMap = {
+        EN: {
+            mainHeading: 'Hasil Deteksi',
+            uploadAnother: 'Upload Another Image',
+            originalImg: 'Citra Orisinal',
+            detection: 'Hasil Deteksi',
+            detailObj: 'Detail Objek',
+            detectedObj: 'Karakter terdeteksi',
+            class: 'Class',
+            confidence: 'Confidence',
+            left: 'Left',
+            showHide: 'Show/Hide Complete Response',
+            completeResp: 'Complete Response:',
+            processTranslit: 'Process with Transliteration',
+            translitResult: 'Transliteration Result',
+            noDetect: 'No detection results available.',
+            noPredictions: 'No predictions found.',
+            processing: 'Processing...',
+            noVisImg: 'Visualized image not available. Check detection results below.'
+        },
+        SU: {
+            mainHeading: 'ᮞᮥᮔ᮪ᮓᮔᮨᮞᮨ ᮓᮨᮒᮨᮎ᮪ᮒ᮪',
+            uploadAnother: 'ᮅᮕᮣᮧᮃᮓ᮪ ᮃᮔ᮪ ᮄᮙᮌᮨ ᮒᮧ ᮓᮨᮒᮨᮎ᮪ᮒ᮪',
+            originalImg: 'ᮎᮤᮒᮢ ᮇᮛᮤᮞᮤᮔᮜ᮪',
+            detection: 'ᮠᮞᮤᮜ᮪ ᮓᮨᮒᮨᮎ᮪ᮒ᮪',
+            detailObj: 'ᮓᮨᮒᮨᮎ᮪ᮒ᮪ ᮇᮛᮤᮞᮤᮔᮜ᮪',
+            detectedObj: 'ᮅᮕᮣᮧᮃᮓ᮪ ᮠᮞᮤᮜ᮪',
+            class: 'ᮎ᮪ᮎᮥᮔ᮪',
+            confidence: 'ᮎᮥᮔ᮪ᮓᮨᮔ᮪',
+            left: 'ᮜᮨᮊ᮪',
+            showHide: 'ᮞᮥᮔ᮪ᮓᮔᮨᮞᮨ/ᮠᮞᮤᮜ᮪ ᮎ᮪ᮎᮥᮔ᮪',
+            completeResp: 'ᮠᮞᮤᮜ᮪ ᮎ᮪ᮎᮥᮔ᮪:',
+            processTranslit: 'ᮠᮞᮤᮜ᮪ ᮎ᮪ᮎᮥᮔ᮪ ᮎ᮪ᮎᮥᮔ᮪',
+            translitResult: 'ᮠᮞᮤᮜ᮪ ᮎ᮪ᮎᮥᮔ᮪',
+            noDetect: 'ᮠᮞᮤᮜ᮪ ᮎ᮪ᮎᮥᮔ᮪ ᮎ᮪ᮎᮥᮔ᮪.',
+            noPredictions: 'ᮠᮞᮤᮜ᮪ ᮎ᮪ᮎᮥᮔ᮪ ᮎ᮪ᮎᮥᮔ᮪.',
+            processing: 'ᮠᮞᮤᮜ᮪... ',
+            noVisImg: 'ᮠᮞᮤᮜ᮪ ᮎ᮪ᮎᮥᮔ᮪ ᮎ᮪ᮎᮥᮔ᮪.'
+        }
+    };
+    let currentLang = 'EN';
+    function updateAllResultBlocks() {
+        {% for idx in range(results.original_images|length) %}
+        if (document.getElementById('originalImgLabel-{{ idx }}')) document.getElementById('originalImgLabel-{{ idx }}').textContent = langMap[currentLang].originalImg + ' {{ idx+1 }}';
+        if (document.getElementById('detectionLabel-{{ idx }}')) document.getElementById('detectionLabel-{{ idx }}').textContent = langMap[currentLang].detection + ' {{ idx+1 }}';
+        if (document.getElementById('detailObjLabel-{{ idx }}')) document.getElementById('detailObjLabel-{{ idx }}').textContent = langMap[currentLang].detailObj + ' {{ idx+1 }}';
+        if (document.getElementById('detectedObjLabel-{{ idx }}')) document.getElementById('detectedObjLabel-{{ idx }}').textContent = langMap[currentLang].detectedObj;
+        if (document.getElementById('classLabel-{{ idx }}')) document.getElementById('classLabel-{{ idx }}').textContent = langMap[currentLang].class;
+        if (document.getElementById('confLabel-{{ idx }}')) document.getElementById('confLabel-{{ idx }}').textContent = langMap[currentLang].confidence;
+        if (document.getElementById('leftLabel-{{ idx }}')) document.getElementById('leftLabel-{{ idx }}').textContent = langMap[currentLang].left;
+        if (document.getElementById('showHideBtn-{{ idx }}')) document.getElementById('showHideBtn-{{ idx }}').textContent = langMap[currentLang].showHide;
+        if (document.getElementById('completeRespLabel-{{ idx }}')) document.getElementById('completeRespLabel-{{ idx }}').textContent = langMap[currentLang].completeResp;
+        if (document.getElementById('inference-btn-text-{{ idx }}')) document.getElementById('inference-btn-text-{{ idx }}').textContent = langMap[currentLang].processTranslit;
+        if (document.getElementById('translitResultLabel-{{ idx }}')) document.getElementById('translitResultLabel-{{ idx }}').textContent = langMap[currentLang].translitResult;
+        if (document.getElementById('noDetectLabel-{{ idx }}')) document.getElementById('noDetectLabel-{{ idx }}').textContent = langMap[currentLang].noDetect;
+        if (document.getElementById('noVisImgLabel-{{ idx }}')) document.getElementById('noVisImgLabel-{{ idx }}').textContent = langMap[currentLang].noVisImg;
+        {% endfor %}
+    }
+    function setResultsLang(lang) {
+        document.getElementById('mainHeading').textContent = langMap[lang].mainHeading;
+        document.getElementById('uploadAnotherBtn').textContent = langMap[lang].uploadAnother;
+        updateAllResultBlocks();
+    }
+
+    const langToggleBtn = document.getElementById('langToggleBtn');
+    if (langToggleBtn) {
+        langToggleBtn.addEventListener('click', function() {
+            currentLang = (currentLang === 'EN') ? 'SU' : 'EN';
+            setResultsLang(currentLang);
+        });
+    }
+    setResultsLang(currentLang);
+</script>
+{% endblock %} 
+

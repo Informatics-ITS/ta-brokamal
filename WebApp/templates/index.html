@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block title %}Sundanese OCR 🍃{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h1>Sundanese Script OCR with YOLO 🍃</h1>
+    <p class="lead">Upload an image to detect Sundanese script.</p>
+</div>
+
+<div class="upload-container">
+    <form id="uploadForm" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="file" class="form-label">Choose an image to upload</label>
+            <input class="form-control" type="file" id="file" name="file" accept=".jpg,.jpeg,.png" required>
+        </div>
+        
+        <div id="image-preview-container" class="mb-3 d-none">
+            <label class="form-label">Image Preview & Crop</label>
+            <div class="image-container">
+                <img id="image-preview" src="#" alt="Preview" class="img-fluid">
+            </div>
+
+
+    <!-- Zoom & Pan Controls -->
+    <div class="d-flex justify-content-center align-items-center gap-3 mb-2" id="cropper-controls">
+    
+    <!-- Zoom buttons stacked vertically -->
+    <div class="d-flex flex-column gap-1">
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="zoomInBtn" title="Zoom In">
+            <i class="bi bi-zoom-in"></i>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="zoomOutBtn" title="Zoom Out">
+            <i class="bi bi-zoom-out"></i>
+        </button>
+    </div>
+
+    <!-- Arrow keys layout -->
+    <div class="d-flex flex-column align-items-center gap-1">
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="moveUpBtn" title="Pan Up">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+        <div class="d-flex gap-1">
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="moveLeftBtn" title="Pan Left">
+                <i class="bi bi-arrow-left"></i>
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="moveDownBtn" title="Pan Down">
+                <i class="bi bi-arrow-down"></i>
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="moveRightBtn" title="Pan Right">
+                <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Reset button -->
+    <button type="button" class="btn btn-outline-secondary btn-sm" id="resetBtn" title="Reset">
+        <i class="bi bi-arrow-counterclockwise"></i>
+    </button>
+
+</div>
+            <div class="d-grid mt-2 gap-2">
+                <button type="button" id="cropAddBtn" class="btn btn-outline-success mb-2">Crop & Add</button>
+                <button type="button" id="doneBtn" class="btn btn-primary">Done</button>
+            </div>
+        </div>
+        
+        <div id="cropped-images-container" class="mb-3 d-none">
+            <label class="form-label">Cropped Regions</label>
+            <div id="cropped-images-list" class="d-flex flex-wrap gap-2"></div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Cropper.js CSS & JS -->
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+<script>
+    let cropper = null;
+    let croppedBlobs = [];
+    const fileInput = document.getElementById('file');
+    const previewImg = document.getElementById('image-preview');
+    const previewContainer = document.getElementById('image-preview-container');
+    const cropAddBtn = document.getElementById('cropAddBtn');
+    const doneBtn = document.getElementById('doneBtn');
+    const uploadForm = document.getElementById('uploadForm');
+    const croppedImagesContainer = document.getElementById('cropped-images-container');
+    const croppedImagesList = document.getElementById('cropped-images-list');
+
+    let originalImageDataUrl = null;
+
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                originalImageDataUrl = event.target.result;
+                previewImg.src = event.target.result;
+                previewContainer.classList.remove('d-none');
+                if (cropper) {
+                    cropper.destroy();
+                }
+                cropper = new Cropper(previewImg, {
+                    aspectRatio: NaN, // Free aspect ratio
+                    viewMode: 1,
+                    autoCropArea: 1,
+                    dragMode: 'move', // Enable panning by mouse drag
+                });
+                // Reset cropped images
+                croppedBlobs = [];
+                croppedImagesList.innerHTML = '';
+                croppedImagesContainer.classList.add('d-none');
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    cropAddBtn.addEventListener('click', function() {
+        if (cropper) {
+            cropper.getCroppedCanvas().toBlob(function(blob) {
+                croppedBlobs.push(blob);
+                // Show preview
+                const url = URL.createObjectURL(blob);
+                const img = document.createElement('img');
+                img.src = url;
+                img.className = 'img-thumbnail';
+                img.style.maxWidth = '120px';
+                img.style.maxHeight = '120px';
+                croppedImagesList.appendChild(img);
+                croppedImagesContainer.classList.remove('d-none');
+            }, 'image/png');
+        }
+    });
+
+    doneBtn.addEventListener('click', function() {
+        if (croppedBlobs.length === 0) {
+            alert('Please crop at least one region.');
+            return;
+        }
+        // Submit all cropped images to backend
+        const formData = new FormData();
+        croppedBlobs.forEach((blob, idx) => {
+            formData.append('file' + idx, blob, 'crop' + (idx+1) + '.png');
+        });
+        // Show loading spinner
+        doneBtn.disabled = true;
+        doneBtn.textContent = 'Processing...';
+        fetch(uploadForm.action, {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                return response.text();
+            }
+        }).catch(err => {
+            alert('Upload failed: ' + err);
+        }).finally(() => {
+            doneBtn.disabled = false;
+            doneBtn.textContent = 'Done';
+        });
+    });
+
+    // Add event listeners for zoom and pan controls
+    document.getElementById('zoomInBtn').addEventListener('click', function() {
+        if (cropper) cropper.zoom(0.1);
+    });
+    document.getElementById('zoomOutBtn').addEventListener('click', function() {
+        if (cropper) cropper.zoom(-0.1);
+    });
+    document.getElementById('moveLeftBtn').addEventListener('click', function() {
+        if (cropper) cropper.move(30, 0);
+    });
+    document.getElementById('moveRightBtn').addEventListener('click', function() {
+        if (cropper) cropper.move(-30, 0);
+    });
+    document.getElementById('moveUpBtn').addEventListener('click', function() {
+        if (cropper) cropper.move(0, 30);
+    });
+    document.getElementById('moveDownBtn').addEventListener('click', function() {
+        if (cropper) cropper.move(0, -30);
+    });
+    document.getElementById('resetBtn').addEventListener('click', function() {
+        if (cropper) cropper.reset();
+    });
+</script>
+<script>
+    // Language toggle for index.html content
+    function setIndexLang(lang) {
+        // Headings and labels
+        document.querySelector('h1').textContent = lang === 'EN' ? 'Sundanese Script OCR with YOLO 🍃' : 'ᮞᮥᮔ᮪ᮓᮔᮨᮞᮨ ᮞ᮪ᮎᮢᮤᮕ᮪ᮒ᮪ ᮇᮎ᮪ᮛ᮪ ᮝᮤᮒ᮪ᮂ ᮚᮧᮜᮧ 🍃';
+        document.querySelector('.lead').textContent = lang === 'EN' ? 'Upload an image to detect Sundanese script.' : 'ᮅᮕᮣᮧᮃᮓ᮪ ᮃᮔ᮪ ᮄᮙᮌᮨ ᮒᮧ ᮓᮨᮒᮨᮎ᮪ᮒ᮪ ᮞᮥᮔ᮪ᮓᮔᮨᮞᮨ ᮞ᮪ᮎᮢᮤᮕ᮪ᮒ᮪.';
+        document.querySelector('label[for="file"]').textContent = lang === 'EN' ? 'Choose an image to upload' : 'ᮎ᮪ᮠᮧᮇᮞᮨ ᮃᮔ᮪ ᮄᮙᮌᮨ ᮒᮧ ᮅᮕᮣᮧᮃᮓ᮪';
+        document.querySelector('#image-preview-container label').textContent = lang === 'EN' ? 'Image Preview & Crop' : 'ᮄᮙᮌᮨ ᮕᮢᮨᮗᮤᮈᮝ᮪ & ᮎᮢᮧᮕ᮪';
+        document.querySelector('#cropped-images-container label').textContent = lang === 'EN' ? 'Cropped Regions' : 'ᮎᮢᮧᮕ᮪ᮕᮨᮓ᮪ ᮛᮨᮌᮤᮇᮔ᮪ᮞ᮪';
+        document.getElementById('cropAddBtn').textContent = lang === 'EN' ? 'Crop & Add' : 'ᮎᮢᮧᮕ᮪ & ᮃᮓ᮪ᮓ᮪';
+        document.getElementById('doneBtn').textContent = lang === 'EN' ? 'Done' : 'ᮓᮧᮔᮨ';
+    }
+    // Listen for language toggle
+    const langToggleBtn = document.getElementById('langToggleBtn');
+    let currentLang = 'EN';
+    if (langToggleBtn) {
+        langToggleBtn.addEventListener('click', function() {
+            currentLang = (currentLang === 'EN') ? 'SU' : 'EN';
+            setIndexLang(currentLang);
+        });
+    }
+    // Set initial language
+    setIndexLang(currentLang);
+</script>
+{% endblock %} 
