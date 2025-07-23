@@ -1,0 +1,6 @@
+*.h5
+.DS_STORE
+*.keras
+*.pkl
+static/
+
