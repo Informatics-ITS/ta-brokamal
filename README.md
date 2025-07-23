@@ -1,10 +1,10 @@
 # 🏁 Tugas Akhir (TA) - Final Project
 
-**Nama Mahasiswa**: [Nama Lengkap]  
-**NRP**: [Nomor Registrasi Pokok]  
-**Judul TA**: [Judul Tugas Akhir]  
-**Dosen Pembimbing**: [Nama Dosen]  
-**Dosen Ko-pembimbing**: [Nama Dosen]
+**Nama Mahasiswa**: Mohammad Kamal Nawaf  
+**NRP**: 5025211180
+**Judul TA**: Pengenalan dan Transliterasi Aksara Sunda Menggunakan YOLO dan LSTM
+**Dosen Pembimbing**: Dr. Eng. Nanik Suciati, S.Kom, M.Kom. 
+**Dosen Ko-pembimbing**: Dini Adni Navastara, S.Kom, M.Sc.
 
 ---
 
