@@ -1,0 +1,601 @@
+Example 1:
+  Source:    ta_eueu_yyy na_uu_rr fa_uu_lll ma_ex_lll ga_oo_rr ca_yyy ja_yyy sya_eueu na_ee_lll va_yyy ma_ee_rrr xa_yyy ja_ex_rrr ka_uu_lll ja_ii qa_ex_rr nga_eueu_ng wa_uu_lll kha_rr
+  Target:    tyeu nur flu mlé gor cya jya syeu nle vya mre xya jré klu ji qér ngeung wlu khar
+  Predicted: tyeu nur flu mlé gor cya jya syeu nle vya mre xya jré klu ji ji ngeung wlu khar
+  CER: 4.84%, WER: 5.26%
+
+Example 2:
+  Source:    da_oo kha_ee_ng xa_hh wa_oo_rrr ba_ii_hh na_ex_yyy wa_uu_rrr ka_ng va_uu_rr va_eueu_ng qa_uu_rr ta_eueu_rrr ta_oo_rr nya_ii_ng na_ee_rr ya_ex_hh da_ex_ng ka_ex_hh ba_ex nga_oo_rr za_eueu_hh ma_ii_lll
+  Target:    do kheng xah wro bih nyé wru kang vur veung qur treu tor nying ner yéh déng kéh bé ngor zeuh mli
+  Predicted: do kheng xah wro bih nyé wru kang vur veung qur treu tor nying ner yéh déng kéh bé zeuh nyé
+  CER: 9.33%, WER: 9.09%
+
+Example 3:
+  Source:    sya_uu fa_eueu kha_pamaeh ma_eueu_ng pa_ii_ng fa_ex ca_rr ma_ex_lll fa_ii fa_ee ma_ii_rrr ca_ee_hh ha_ex fa_oo_hh xa_hh pa_oo_rr ma_ee_lll nga_oo_hh
+  Target:    syu feu kh meung ping fé car mlé fi fe mri ceh hé foh xah por mle ngoh
+  Predicted: syu feu kh meung ping fé car mlé fi fe mri ceh hé foh xah por ngoh
+  CER: 5.66%, WER: 5.56%
+
+Example 4:
+  Source:    ta_oo
+  Target:    to
+  Predicted: to
+  CER: 0.00%, WER: 0.00%
+
+Example 5:
+  Source:    qa_uu_ng fa_ex_lll ya_oo_rrr nya_uu_ng tujuh ba_oo_rrr va_eueu_rr la_ee hiji ma_ee_lll ya_oo_ng la_uu_rrr o_hh nya_ee_ng ka_ee_yyy la_ee_yyy da_eueu_yyy ra_ee_lll ka_uu_ng nga_ng
+  Target:    qung flé yro nyung 7 bro veur le 1 mle yong lru oh nyeng kye lye dyeu rle kung ngang
+  Predicted: qung flé yro nyung 7 bro veur le 1 mle yong lru oh nyeng kye lye dyeu rle kung ngang
+  CER: 0.00%, WER: 0.00%
+
+Example 6:
+  Source:    ma_eueu_rrr ha_uu_ng nga_ii pa_oo_lll qa_pamaeh pa_pamaeh ga_eueu_rr sya_ii ga_uu_yyy ba_uu_yyy
+  Target:    mreu hung ngi plo q p geur syi gyu byu
+  Predicted: mreu hung ngi plo q p geur syi gyu byu
+  CER: 0.00%, WER: 0.00%
+
+Example 7:
+  Source:    ta_ex_hh ca_uu_ng ja_eueu_ng ra ra_ee_lll ta_eueu_lll ya_ex_ng ma_ee_yyy ra_uu ga_ex qa_uu ma_oo_rr nga_uu_ng ta_ee_lll
+  Target:    téh cung jeung ra rle tleu yéng mye ru gé qu mor ngung tle
+  Predicted: téh cung jeung ra rle tleu yéng mye ru gé qu mor ngung tle
+  CER: 0.00%, WER: 0.00%
+
+Example 8:
+  Source:    ba_ee_hh ya_rrr ca_ii_ng qa_oo_hh e_hh ka_ii_lll ba_eueu va_uu ya_eueu dua ja_ex_lll na_ex_ng nga_pamaeh fa_uu ba_uu_rr ca_ii_yyy kha_oo ta_eueu_lll fa_oo_lll pa_rrr fa_rr na_ii_lll xa_pamaeh za_ee_hh
+  Target:    beh yra cing qoh eh kli beu vu yeu 2 jlé néng ng fu bur cyi kho tleu flo pra far nli x zeh
+  Predicted: beh yra cing qoh eh kli beu vu yeu 2 jlé néng ng fu bur cyi kho ylu tleu pra far pra ha zeh
+  CER: 14.93%, WER: 16.67%
+
+Example 9:
+  Source:    na_ex_rr
+  Target:    nér
+  Predicted: nér
+  CER: 0.00%, WER: 0.00%
+
+Example 10:
+  Source:    ha_uu_ng pa_oo_lll ba_ee_yyy za_ee_hh wa_ee_yyy ya da_rrr sa_ee_ng ta_ex_ng fa ca_uu la_ex_ng ca_ee_hh ja_uu_ng ma_ex_hh qa_uu_hh ta_eueu la_ex_rr nga_ex_ng va_ex_rr la_yyy ya_eueu_lll pa_ii_hh nya_ii_ng
+  Target:    hung plo bye zeh wye ya dra seng téng fa cu léng ceh jung méh quh teu lér ngéng vér lya yleu pih nying
+  Predicted: hung plo bye zeh wye ya dra seng téng fa cu léng ceh jung méh quh teu lér ngéng vér lya géng yleu
+  CER: 13.92%, WER: 12.50%
+
+Example 11:
+  Source:    ca_oo_rrr wa_eueu_rr wa_uu_rrr e_hh ba_oo_hh wa_ii ta_eueu_rr pa_eueu_lll ta_uu_hh ba_uu_rr ba_ex na_eueu_yyy ra
+  Target:    cro weur wru eh boh wi teur pleu tuh bur bé nyeu ra
+  Predicted: cro weur wru eh boh wi teur pleu tuh bur bé nyeu ra
+  CER: 0.00%, WER: 0.00%
+
+Example 12:
+  Source:    hiji
+  Target:    1
+  Predicted: 1
+  CER: 0.00%, WER: 0.00%
+
+Example 13:
+  Source:    ha_ii_ng
+  Target:    hing
+  Predicted: hing
+  CER: 0.00%, WER: 0.00%
+
+Example 14:
+  Source:    fa_ex_ng sa_oo_hh wa_ee wa_ee_rr xa_ex ha_ii da fa_ex_lll ta_eueu_hh wa_ee_hh ka_ex_yyy fa_uu_hh ja_eueu_rr da_ex_lll sya_pamaeh o ba_uu_hh ma_ex_lll ma_yyy ga_ii_rr wa_oo_ng pa_oo_rr ca_ex_rr ha_ee_lll
+  Target:    féng soh we wer xé hi da flé teuh weh kyé fuh jeur dlé sy o buh mlé mya gir wong por cér hle
+  Predicted: féng soh we wer xé hi da flé teuh weh kyé fuh jeur dlé sy o buh mlé mya gir wyé boh syi
+  CER: 15.94%, WER: 16.67%
+
+Example 15:
+  Source:    i fa_ee_rrr ga_oo_ng ka_ii_hh ha_ii_yyy ma_oo_lll ga_eueu_ng ra_hh ta_eueu_rrr nya_oo ha_ex_rr sa_ee_hh la_uu_ng nya_eueu_ng e_hh ya_oo_lll la_oo_yyy va_rr xa va_uu_ng
+  Target:    i fre gong kih hyi mlo geung rah treu nyo hér seh lung nyeung eh ylo lyo var xa vung
+  Predicted: i fre gong kih hyi mlo geung rah treu nyo hér seh lung nyeung eh ylo lyo var xa vung
+  CER: 0.00%, WER: 0.00%
+
+Example 16:
+  Source:    da_uu_lll
+  Target:    dlu
+  Predicted: dlu
+  CER: 0.00%, WER: 0.00%
+
+Example 17:
+  Source:    fa_ee_lll
+  Target:    fle
+  Predicted: fle
+  CER: 0.00%, WER: 0.00%
+
+Example 18:
+  Source:    ta_uu_hh
+  Target:    tuh
+  Predicted: tuh
+  CER: 0.00%, WER: 0.00%
+
+Example 19:
+  Source:    nya_rr ta_uu ha_ee_lll ba_oo_rrr sa_hh ga_eueu_rr ga_uu ma_oo_lll ma_eueu_ng qa_uu na_oo_hh va_yyy
+  Target:    nyar tu hle bro sah geur gu mlo meung qu noh vya
+  Predicted: nyar tu hle bro sah geur gu mlo meung qu noh vya
+  CER: 0.00%, WER: 0.00%
+
+Example 20:
+  Source:    u_hh
+  Target:    uh
+  Predicted: uh
+  CER: 0.00%, WER: 0.00%
+
+Example 21:
+  Source:    u_hh
+  Target:    uh
+  Predicted: uh
+  CER: 0.00%, WER: 0.00%
+
+Example 22:
+  Source:    ra_eueu
+  Target:    reu
+  Predicted: reu
+  CER: 0.00%, WER: 0.00%
+
+Example 23:
+  Source:    ba_ii_lll
+  Target:    bli
+  Predicted: bli
+  CER: 0.00%, WER: 0.00%
+
+Example 24:
+  Source:    wa_oo_rrr ka_eueu_hh da_eueu_hh ya_oo_yyy e_hh ba_ii_hh ha ra_ii_rrr la_ee_rrr da_eueu_rr na_ii_rrr ta_eueu_rr da_ex ga_ng xa_ng va_ii ra za_ee_hh ca_ee_rr ya_ee ba_oo_hh la_ii_lll fa_ex_rrr xa_lll
+  Target:    wro keuh deuh yyo eh bih ha rri lre deur nri teur dé gang xang vi ra zeh cer ye boh lli fré xla
+  Predicted: wro keuh deuh yyo eh bih ha rri lre deur nri teur dé gang xang vi ra zeh cer boh syi nra xla
+  CER: 8.33%, WER: 12.50%
+
+Example 25:
+  Source:    ca
+  Target:    ca
+  Predicted: ca
+  CER: 0.00%, WER: 0.00%
+
+Example 26:
+  Source:    ha_lll qa_ee_hh ja_ii_rrr sa_lll la_ex_hh na_ee_yyy
+  Target:    hla qeh jri sla léh nye
+  Predicted: hla qeh jri sla léh nye
+  CER: 0.00%, WER: 0.00%
+
+Example 27:
+  Source:    ra_ng sya_ee_ng wa_ex_rrr ra_ii_lll wa_ex sa_ii ka_ee_lll za_rrr da_ex_rrr fa_ii_rrr la_ii_lll za_eueu qa_oo ra_uu xa_oo nga_hh la_ii_hh sa_eueu_rrr
+  Target:    rang syeng wré rli wé si kle zra dré fri lli zeu qo ru xo ngah lih sreu
+  Predicted: rang syeng wré rli wé si kle zra dré fri lli zeu qo ru xo ngah lih sreu
+  CER: 0.00%, WER: 0.00%
+
+Example 28:
+  Source:    ta_uu_hh nya_ii_hh sya_oo qa_eueu hiji é nga_uu_ng
+  Target:    tuh nyih syo qeu 1 é ngung
+  Predicted: tuh nyih syo qeu 1 é ngung
+  CER: 0.00%, WER: 0.00%
+
+Example 29:
+  Source:    la_eueu
+  Target:    leu
+  Predicted: leu
+  CER: 0.00%, WER: 0.00%
+
+Example 30:
+  Source:    tujuh ka_ii_ng nga_ex_ng ga_oo_ng pa_oo_ng e_rr
+  Target:    7 king ngéng gong pong er
+  Predicted: 7 king ngéng gong pong er
+  CER: 0.00%, WER: 0.00%
+
+Example 31:
+  Source:    sa_eueu_lll
+  Target:    sleu
+  Predicted: sleu
+  CER: 0.00%, WER: 0.00%
+
+Example 32:
+  Source:    da_ex_ng ba_ng ra_rr pa_oo_yyy sa_oo_hh la_ex ba_ex_ng ma_ee_lll ga_ex_rrr i ka_eueu xa_eueu sya_uu_rr ma_ii_rrr va_ee ha_uu_hh ca_eueu ka_ee_yyy kha_eueu_hh ba_ex_hh
+  Target:    déng bang rar pyo soh lé béng mle gré i keu xeu syur mri ve huh ceu kye kheuh béh
+  Predicted: déng bang rar pyo soh lé béng mle gré i keu xeu syur mri ve huh ceu kye béh béh
+  CER: 6.45%, WER: 5.00%
+
+Example 33:
+  Source:    nya_uu_ng
+  Target:    nyung
+  Predicted: nyung
+  CER: 0.00%, WER: 0.00%
+
+Example 34:
+  Source:    ta_ee_lll sya_hh ja_eueu_ng ba_ii_lll ma_ii_yyy ta_uu_hh ra_uu_rr da_yyy
+  Target:    tle syah jeung bli myi tuh rur dya
+  Predicted: tle syah jeung bli myi tuh rur dya
+  CER: 0.00%, WER: 0.00%
+
+Example 35:
+  Source:    la_ex
+  Target:    lé
+  Predicted: lé
+  CER: 0.00%, WER: 0.00%
+
+Example 36:
+  Source:    sya_eueu_hh
+  Target:    syeuh
+  Predicted: syeuh
+  CER: 0.00%, WER: 0.00%
+
+Example 37:
+  Source:    sa_ii_ng dua ba_oo_rr da_pamaeh sa_ii_lll da_eueu_yyy
+  Target:    sing 2 bor d sli dyeu
+  Predicted: sing 2 bor d sli dyeu
+  CER: 0.00%, WER: 0.00%
+
+Example 38:
+  Source:    ha_uu
+  Target:    hu
+  Predicted: hu
+  CER: 0.00%, WER: 0.00%
+
+Example 39:
+  Source:    sa_ex
+  Target:    sé
+  Predicted: sé
+  CER: 0.00%, WER: 0.00%
+
+Example 40:
+  Source:    wa_ex ha_ex_rr qa_ex_rr fa_oo va_uu_ng
+  Target:    wé hér qér fo vung
+  Predicted: wé hér qér fo vung
+  CER: 0.00%, WER: 0.00%
+
+Example 41:
+  Source:    ya_rrr
+  Target:    yra
+  Predicted: yra
+  CER: 0.00%, WER: 0.00%
+
+Example 42:
+  Source:    na
+  Target:    na
+  Predicted: na
+  CER: 0.00%, WER: 0.00%
+
+Example 43:
+  Source:    ka_ii_rr
+  Target:    kir
+  Predicted: kir
+  CER: 0.00%, WER: 0.00%
+
+Example 44:
+  Source:    ca_oo_hh
+  Target:    coh
+  Predicted: coh
+  CER: 0.00%, WER: 0.00%
+
+Example 45:
+  Source:    e_hh za_rr sa_ii_lll ma_eueu ba_oo_rrr ca_oo_lll fa_ex_yyy sa_ii_rrr nga_oo_rr nga_ee_ng wa_oo_ng ka_ee_hh
+  Target:    eh zar sli meu bro clo fyé sri ngor ngeng wong keh
+  Predicted: eh zar sli meu bro clo fyé sri ngor ngeng wong keh
+  CER: 0.00%, WER: 0.00%
+
+Example 46:
+  Source:    ta_ee_rr ga_rr ja_oo_yyy va_oo_rr va_ex_ng ya_ii_rr la_oo u
+  Target:    ter gar jyo vor véng yir lo u
+  Predicted: ter gar jyo vor véng yir lo u
+  CER: 0.00%, WER: 0.00%
+
+Example 47:
+  Source:    u_ng
+  Target:    ung
+  Predicted: ung
+  CER: 0.00%, WER: 0.00%
+
+Example 48:
+  Source:    nga_ee_rr
+  Target:    nger
+  Predicted: nger
+  CER: 0.00%, WER: 0.00%
+
+Example 49:
+  Source:    va_eueu_hh qa_eueu_hh qa_oo_rr za_ii_rr ka_oo_rrr sa_ee_rr ta_ex_ng
+  Target:    veuh qeuh qor zir kro ser téng
+  Predicted: veuh qeuh qor zir kro ser téng
+  CER: 0.00%, WER: 0.00%
+
+Example 50:
+  Source:    na_uu_rrr
+  Target:    nru
+  Predicted: nru
+  CER: 0.00%, WER: 0.00%
+
+Example 51:
+  Source:    sya_eueu_ng ra_uu_yyy ma_oo_rr ka_eueu_hh ja_uu_yyy xa_ii_ng
+  Target:    syeung ryu mor keuh jyu xing
+  Predicted: syeung ryu mor keuh jyu xing
+  CER: 0.00%, WER: 0.00%
+
+Example 52:
+  Source:    da_ee_hh wa_ee nya_eueu_rr nya_ii_ng nga_hh wa_eueu_ng qa_ex_hh wa_ee_rr nga_oo_rr na_eueu_rr wa
+  Target:    deh we nyeur nying ngah weung qéh wer ngor neur wa
+  Predicted: deh we nyeur nying ngah weung qéh wer ngor neur wa
+  CER: 0.00%, WER: 0.00%
+
+Example 53:
+  Source:    za_rrr
+  Target:    zra
+  Predicted: zra
+  CER: 0.00%, WER: 0.00%
+
+Example 54:
+  Source:    ka_eueu_yyy
+  Target:    kyeu
+  Predicted: kyeu
+  CER: 0.00%, WER: 0.00%
+
+Example 55:
+  Source:    sya_ng
+  Target:    syang
+  Predicted: syang
+  CER: 0.00%, WER: 0.00%
+
+Example 56:
+  Source:    za_rr i_hh wa_ii_rr ba_ee qa va_ee_rr ra_oo_ng ya_eueu_ng ha_oo_yyy da_oo_lll xa_eueu qa_lll nya_ex nya_oo ca_uu qa_oo_ng qa_oo_hh ja_ee_rr ja_uu_lll ka_ex_rr la_oo_rr ca nga_oo_rr
+  Target:    zar ih wir be qa ver rong yeung hyo dlo xeu qla nyé nyo cu qong qoh jer jlu kér lor ca ngor
+  Predicted: zar ih wir be qa ver rong yeung hyo dlo xeu qla nyé nyo cu qong qoh jer jlu jla nya ce
+  CER: 14.49%, WER: 17.39%
+
+Example 57:
+  Source:    za_ee ma_oo ka_ex_yyy la_uu_hh qa_eueu_rr nga_ee_ng ta_ee_yyy ga_oo_rr qa_ii_hh nga_ng da_uu_rr qa_oo_rr pa_oo_yyy ba_rr va_eueu_hh ha_eueu ba_oo_yyy ra_oo_hh sa_ex_ng sya_eueu_rr ta_eueu_rrr da_oo_yyy ba_uu_ng
+  Target:    ze mo kyé luh qeur ngeng tye gor qih ngang dur qor pyo bar veuh heu byo roh séng syeur treu dyo bung
+  Predicted: ze mo kyé luh qeur ngeng tye gor qih ngang dur qor pyo bar veuh heu byo roh séng syeur dyo bung
+  CER: 5.13%, WER: 4.35%
+
+Example 58:
+  Source:    sya_oo_hh
+  Target:    syoh
+  Predicted: syoh
+  CER: 0.00%, WER: 0.00%
+
+Example 59:
+  Source:    ba_ii_rrr qa_eueu ga_uu ma_uu_ng ba_ii ka_ex_ng wa_eueu_ng ya_ex_yyy
+  Target:    bri qeu gu mung bi kéng weung yyé
+  Predicted: bri qeu gu mung bi kéng weung yyé
+  CER: 0.00%, WER: 0.00%
+
+Example 60:
+  Source:    sa_ee_rrr
+  Target:    sre
+  Predicted: sre
+  CER: 0.00%, WER: 0.00%
+
+Example 61:
+  Source:    va_eueu_hh
+  Target:    veuh
+  Predicted: veuh
+  CER: 0.00%, WER: 0.00%
+
+Example 62:
+  Source:    ya_oo_rr
+  Target:    yor
+  Predicted: yor
+  CER: 0.00%, WER: 0.00%
+
+Example 63:
+  Source:    pa_oo_rrr
+  Target:    pro
+  Predicted: pro
+  CER: 0.00%, WER: 0.00%
+
+Example 64:
+  Source:    ba_uu
+  Target:    bu
+  Predicted: bu
+  CER: 0.00%, WER: 0.00%
+
+Example 65:
+  Source:    o_rr
+  Target:    or
+  Predicted: or
+  CER: 0.00%, WER: 0.00%
+
+Example 66:
+  Source:    sa_ee_hh ca_oo_lll
+  Target:    seh clo
+  Predicted: seh clo
+  CER: 0.00%, WER: 0.00%
+
+Example 67:
+  Source:    ha_ee_yyy nga_eueu_hh
+  Target:    hye ngeuh
+  Predicted: hye ngeuh
+  CER: 0.00%, WER: 0.00%
+
+Example 68:
+  Source:    ha_oo_rrr ra_uu_rr ta_eueu_ng sya pa_ex_lll ga_oo ya_oo_ng ra_uu_hh fa_hh ha_eueu_lll sa_ee_ng wa_oo_hh nga_ee ta_ee
+  Target:    hro rur teung sya plé go yong ruh fah hleu seng woh nge te
+  Predicted: hro rur teung sya plé go yong ruh fah hleu seng woh nge te
+  CER: 0.00%, WER: 0.00%
+
+Example 69:
+  Source:    ba_oo ca_rr wa_oo_rr za_ii_rr ya_ii_rrr ga_ee_ng na_eueu_rr fa_eueu kha_rr wa_eueu_yyy sya_uu qa_pamaeh
+  Target:    bo car wor zir yri geng neur feu khar wyeu syu q
+  Predicted: bo car wor zir yri geng neur feu khar wyeu syu q
+  CER: 0.00%, WER: 0.00%
+
+Example 70:
+  Source:    ga_oo_ng
+  Target:    gong
+  Predicted: gong
+  CER: 0.00%, WER: 0.00%
+
+Example 71:
+  Source:    ma_uu qa_oo_hh na_ex_yyy ka_ii_rrr na_eueu_ng sa_ng ta_uu_rrr ta_ex_lll ra_uu_yyy pa_ii_lll la_uu_hh sa_uu wa_ex_rr ba_ee_ng fa_ee_hh
+  Target:    mu qoh nyé kri neung sang tru tlé ryu pli luh su wér beng feh
+  Predicted: mu qoh nyé kri neung sang tru tlé ryu pli luh su wér feh
+  CER: 8.51%, WER: 6.67%
+
+Example 72:
+  Source:    ra_rrr ra_eueu ja_ex_ng ba_ng pa_oo_yyy la_oo_ng va_uu ba_oo_rr pa_ex_yyy la_eueu pa_eueu_rr za_ii_ng ha_ee ma_ex_yyy u_rr ka_ee qa_hh da_ii_ng ba_ee ca_pamaeh ya_ii_hh ca_ii_rrr
+  Target:    rra reu jéng bang pyo long vu bor pyé leu peur zing he myé ur ke qah ding be c yih cri
+  Predicted: rra reu jéng bang pyo long vu bor pyé leu peur zing he myé ur ke ding be c c cri cri
+  CER: 10.77%, WER: 13.64%
+
+Example 73:
+  Source:    sa_oo_rrr sya_ii_hh ka_ee_rr sa_ee ma_ee_yyy ma_yyy ba_ex_yyy ha_uu_hh tujuh pa_ee_rr ba_uu_yyy ha_oo_lll
+  Target:    sro syih ker se mye mya byé huh 7 per byu hlo
+  Predicted: sro syih ker se mye mya byé huh 7 per byu hlo
+  CER: 0.00%, WER: 0.00%
+
+Example 74:
+  Source:    ma_ee_rrr ya_ex_yyy qa_ee fa_lll da_ee_hh fa_ii_rrr ja_pamaeh ma_rr xa_ii_hh
+  Target:    mre yyé qe fla deh fri j mar xih
+  Predicted: mre yyé qe fla deh fri j mar xih
+  CER: 0.00%, WER: 0.00%
+
+Example 75:
+  Source:    da_rr
+  Target:    dar
+  Predicted: dar
+  CER: 0.00%, WER: 0.00%
+
+Example 76:
+  Source:    fa_ee_ng
+  Target:    feng
+  Predicted: feng
+  CER: 0.00%, WER: 0.00%
+
+Example 77:
+  Source:    fa_ee_lll ra_uu_lll ja_uu_lll ja_uu_rrr xa_eueu sa_ee_ng wa_eueu_rr xa_ng xa_rrr ja_ee_rrr sa_ee_rr la_ee_rr na_rrr ga_hh ja_ii sa_ee_lll sya_ex_rr opat fa_rrr
+  Target:    fle rlu jlu jru xeu seng weur xang xra jre ser ler nra gah ji sle syér 4 fra
+  Predicted: fle rlu jlu jru xeu seng weur xang xra jre ser ler nra gah ji sle syér 4
+  CER: 5.17%, WER: 5.26%
+
+Example 78:
+  Source:    ba_ee ta_ee_lll ra_oo_rrr fa_ex wa_ex_hh va_ex_ng ma_uu_lll ga_ng ya_pamaeh ma_ii_lll ta_ex_yyy ha_uu_yyy ba_ee_hh ta_eueu_hh ja_ii_ng
+  Target:    be tle rro fé wéh véng mlu gang y mli tyé hyu beh teuh jing
+  Predicted: be tle rro fé wéh véng mlu gang y mli tyé hyu beh teuh jing
+  CER: 0.00%, WER: 0.00%
+
+Example 79:
+  Source:    ba_ee_hh ya_ex_lll ra_ii_rrr nga_eueu_rr ta_ex_rrr ha_ex_lll za_uu ya_hh ka_oo_rrr wa_oo_lll sa_ii ga_ii_lll nya_eueu_ng qa_uu_hh fa_uu_rr ra_rrr ba_eueu_hh
+  Target:    beh ylé rri ngeur tré hlé zu yah kro wlo si gli nyeung quh fur rra beuh
+  Predicted: beh ylé rri ngeur ngeur hlé zu yah kro wlo si gli nyeung quh fur rra beuh
+  CER: 9.09%, WER: 5.88%
+
+Example 80:
+  Source:    sa_ex_ng ha_eueu_rrr la_ii_hh kha_ee fa_ng nya_uu ja_pamaeh na_lll wa_eueu_rrr ka_uu_hh nya_hh qa_ii pa_oo_ng e_rr ma_ee_hh ma_oo_lll ya_eueu sa_uu_ng sya_oo
+  Target:    séng hreu lih khe fang nyu j nla wreu kuh nyah qi pong er meh mlo yeu sung syo
+  Predicted: séng hreu lih khe fang nyu j nla wreu kuh nyah qi pong er meh mlo yeu sung syo
+  CER: 0.00%, WER: 0.00%
+
+Example 81:
+  Source:    nga_rr ta_ee_lll la_oo_lll nya_hh sa_ex_lll fa_ex_rrr sa_yyy sa_eueu_rr fa_eueu_rr ka_oo_yyy
+  Target:    ngar tle llo nyah slé fré sya seur feur kyo
+  Predicted: ngar tle llo nyah slé fré sya seur feur kyo
+  CER: 0.00%, WER: 0.00%
+
+Example 82:
+  Source:    fa_ex_rrr ca_ex_rr ja_oo_ng fa_oo_hh ga_eueu_rrr ca_oo_rrr sya_oo_ng ba_ex_yyy ca_ii_yyy ga_ex_yyy ka_ee_ng ja_yyy ha_oo_ng ra ka_ee_rr sya_hh sa_rr ka o_ng ga_lll ja_hh
+  Target:    fré cér jong foh greu cro syong byé cyi gyé keng jya hong ra ker syah sar ka ong gla jah
+  Predicted: fré cér jong foh greu cro syong byé cyi gyé keng jya hong ra ker syah sar ka ong jah jah
+  CER: 4.41%, WER: 4.76%
+
+Example 83:
+  Source:    qa_ee_ng
+  Target:    qeng
+  Predicted: qeng
+  CER: 0.00%, WER: 0.00%
+
+Example 84:
+  Source:    ka_eueu_lll wa_ex_ng qa_ee qa_uu_ng ma_rr u
+  Target:    kleu wéng qe qung mar u
+  Predicted: kleu wéng qe qung mar u
+  CER: 0.00%, WER: 0.00%
+
+Example 85:
+  Source:    pa_ii_hh ya_ee_yyy ha_oo_lll kha_uu kha_eueu ga_ii_rrr ta_oo pa_uu_lll pa_eueu_ng pa_pamaeh da_ii_yyy la_eueu_rr
+  Target:    pih yye hlo khu kheu gri to plu peung p dyi leur
+  Predicted: pih yye hlo khu kheu gri to plu peung p dyi leur
+  CER: 0.00%, WER: 0.00%
+
+Example 86:
+  Source:    ca_rr
+  Target:    car
+  Predicted: car
+  CER: 0.00%, WER: 0.00%
+
+Example 87:
+  Source:    na_ii qa_ex_hh ja_ex ra_ii_ng ha_hh ha_ex_lll sa_uu_ng ga_ii ga_ex_rr na_uu_lll za_ex sa_ee_lll va_ii_rr sa_ee_rr ga ya_ng la_hh ma_eueu_rrr kha_eueu_rr ka_ii_hh sa_ee_hh qa_lll a_rr
+  Target:    ni qéh jé ring hah hlé sung gi gér nlu zé sle vir ser ga yang lah mreu kheur kih seh qla ar
+  Predicted: ni qéh jé ring hah hlé sung gi gér nlu zé sle vir ser ga yang lah mreu kheur kheur kih qla ar
+  CER: 8.70%, WER: 8.70%
+
+Example 88:
+  Source:    kha_ex_ng ba_ex_rr na sa_oo_lll pa_ee_lll la_ii fa_uu_rr za_rr wa_ex_yyy ya_ii_lll ba_ee_lll qa_ee_hh ca_ii_rr da_hh va_eueu da_eueu_rr va_ee_hh
+  Target:    khéng bér na slo ple li fur zar wyé yli ble qeh cir dah veu deur veh
+  Predicted: khéng bér na slo ple li fur zar wyé yli ble qeh cir dah veu deur veh
+  CER: 0.00%, WER: 0.00%
+
+Example 89:
+  Source:    ha_ex_rrr fa_ex wa_eueu pa_ex_ng la_uu_rr pa_eueu
+  Target:    hré fé weu péng lur peu
+  Predicted: hré fé weu péng lur peu
+  CER: 0.00%, WER: 0.00%
+
+Example 90:
+  Source:    ba_uu za_yyy qa_ii_ng xa_ng ja_hh sya_uu_rr ya_pamaeh ya_eueu_ng ha_uu_rrr da_eueu_ng sa_oo_rr sa_ii ma_rr na_ex_yyy nya_ii_hh ca_rr fa_oo_rrr nga_uu la_oo_rr e_rr ta_ii_rrr
+  Target:    bu zya qing xang jah syur y yeung hru deung sor si mar nyé nyih car fro ngu lor er tri
+  Predicted: bu zya qing xang jah syur y yeung hru deung sor si mar nyé nyih car fro ngu lor er tri
+  CER: 0.00%, WER: 0.00%
+
+Example 91:
+  Source:    ha_oo
+  Target:    ho
+  Predicted: ho
+  CER: 0.00%, WER: 0.00%
+
+Example 92:
+  Source:    ma_ex_rrr nya_oo_hh xa_pamaeh ba_oo_hh ja_ee_ng
+  Target:    mré nyoh x boh jeng
+  Predicted: mré nyoh x boh jeng
+  CER: 0.00%, WER: 0.00%
+
+Example 93:
+  Source:    nga_rr ha_ex_rr da_ii_rr na_ii_ng ya_ex_rrr na_oo ha_ee_rrr pa_ee_yyy ra_ii_ng la_ex_lll za_uu_hh wa_ex_rr za_uu_ng ha_ex_ng sa_ee_hh ba_yyy ha_oo_hh ra_ex_rr sa_eueu_yyy
+  Target:    ngar hér dir ning yré no hre pye ring llé zuh wér zung héng seh bya hoh rér syeu
+  Predicted: ngar hér dir ning yré no hre pye ring llé zuh wér zung héng seh bya hoh rér syeu
+  CER: 0.00%, WER: 0.00%
+
+Example 94:
+  Source:    nya_oo_rr ra_eueu_lll ka_ex_hh ma_uu_hh ya_ee_lll ca_ex_hh va_eueu_hh qa_oo_ng pa_ee_lll sya ka_oo_rrr na_oo_ng na_rrr ka_lll ja_oo_rrr ga_eueu_hh ha_yyy ha_uu_lll ya_ii_rr da_eueu_yyy qa_hh ta_uu_hh ba_uu_ng sa_uu_rr kha_hh
+  Target:    nyor rleu kéh muh yle céh veuh qong ple sya kro nong nra kla jro geuh hya hlu yir dyeu qah tuh bung sur khah
+  Predicted: nyor rleu kéh muh yle céh veuh qong ple sya kro nong nra kla jro geuh hya hlu yir dyeu dyeu qah qah har
+  CER: 16.67%, WER: 20.00%
+
+Example 95:
+  Source:    ba_eueu_lll pa_ex_ng sa_uu_rrr za_uu_ng ja_ii la_uu ka_ex_yyy ta_ii_ng nya_ee_hh ma_eueu_lll ja_oo sya_oo_rr pa_hh ba_ee_ng ta_ii_lll xa_lll ta_ex_lll wa_uu_lll na_ee_hh ba_rr va_lll pa_ii_hh ba_oo_yyy ca_uu qa_ex_rr
+  Target:    bleu péng sru zung ji lu kyé ting nyeh mleu jo syor pah beng tli xla tlé wlu neh bar vla pih byo cu qér
+  Predicted: bleu péng sru zung ji lu kyé ting nyeh mleu jo syor pah beng tli xla tlé wlu neh bar bar vla yih byo
+  CER: 11.39%, WER: 16.00%
+
+Example 96:
+  Source:    na_uu_ng
+  Target:    nung
+  Predicted: nung
+  CER: 0.00%, WER: 0.00%
+
+Example 97:
+  Source:    ha_ii_rrr na_ee_hh
+  Target:    hri neh
+  Predicted: hri neh
+  CER: 0.00%, WER: 0.00%
+
+Example 98:
+  Source:    nya_ex_rr da_ee_lll pa_ex_rr da_ex_rrr ma_ee_rrr wa_lll la_eueu_ng za_eueu_ng da_eueu ya_rrr na_ii_rr ya_eueu_yyy la_ex_yyy sya_uu qa_eueu_ng pa_oo_yyy kha_hh ba_rr ta_oo_rr
+  Target:    nyér dle pér dré mre wla leung zeung deu yra nir yyeu lyé syu qeung pyo khah bar tor
+  Predicted: nyér dle pér dré mre wla leung zeung deu yra nir yyeu lyé syu qeung pyo khah bar tor
+  CER: 0.00%, WER: 0.00%
+
+Example 99:
+  Source:    da_lll
+  Target:    dla
+  Predicted: dla
+  CER: 0.00%, WER: 0.00%
+
+Example 100:
+  Source:    ja_ii_lll nya_ex ta_ii_rrr ma_ng ya_oo_rr da_ii_ng da_uu_yyy la_oo_ng la_eueu wa_ex_lll ra_eueu_yyy ra_ee_ng va_pamaeh na_pamaeh sa_ee_yyy kha_ii na_eueu_rr sa_ee_rr wa_ii_yyy ma_ex_yyy ya_eueu_ng nga_ee_ng
+  Target:    jli nyé tri mang yor ding dyu long leu wlé ryeu reng v n sye khi neur ser wyi myé yeung ngeng
+  Predicted: jli nyé tri mang yor ding dyu long leu wlé ryeu reng v n sye khi neur ser wyi myé yeung
+  CER: 6.94%, WER: 4.55%
+
+CER: 1.45%, WER: 1.47%
