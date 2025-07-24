@@ -1,16 +1,14 @@
 # 🏁 Tugas Akhir (TA) - Final Project
 
-**Nama Mahasiswa**: Mohammad Kamal Nawaf  
-**NRP**: 5025211180
-**Judul TA**: Pengenalan dan Transliterasi Aksara Sunda Menggunakan YOLO dan LSTM
-**Dosen Pembimbing**: Dr. Eng. Nanik Suciati, S.Kom, M.Kom. 
-**Dosen Ko-pembimbing**: Dini Adni Navastara, S.Kom, M.Sc.
+- **Nama Mahasiswa**: Mohammad Kamal Nawaf  
+- **NRP**: 5025211180
+- **Judul TA**: Pengenalan dan Transliterasi Aksara Sunda Menggunakan YOLO dan LSTM
+- **Dosen Pembimbing**: Dr. Eng. Nanik Suciati, S.Kom, M.Kom. 
+- **Dosen Ko-pembimbing**: Dini Adni Navastara, S.Kom, M.Sc.
 
 ---
 
 ## 📺 Demo Aplikasi  
-Embed video demo di bawah ini (ganti `VIDEO_ID` dengan ID video YouTube Anda):  
-
 [![Demo Aplikasi](https://i.ytimg.com/vi/WhqGDabLwYQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=WhqGDabLwYQ)  
 *Klik gambar di atas untuk menonton demo*
 
