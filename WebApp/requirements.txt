@@ -1,5 +1,0 @@
-flask==2.3.3
-inference-sdk
-Pillow
-requests
-flask-cors 
